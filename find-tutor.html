@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Find a Tutor | TUTORA</title>
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <style>
     body {
+      background-color: #f8f9fa;
       font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
     }
-    .card-title {
-      font-weight: bold;
-      font-size: 1.2rem;
+    .tutor-card {
+      border-radius: 12px;
     }
-    .card-text {
-      color: #555;
+    .status-text {
+      font-size: 0.9rem;
+      color: #6c757d;
     }
   </style>
 </head>
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+<nav class="navbar navbar-expand-lg bg-white border-bottom">
   <div class="container">
     <a class="navbar-brand fw-bold" href="index.html">TUTORA</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="collapse navbar-collapse show">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
         <li class="nav-item"><a class="nav-link active" href="find-tutor.html">Find a Tutor</a></li>
@@ -40,52 +39,30 @@
   </div>
 </nav>
 
-<!-- Hero Section -->
+<!-- Header -->
 <section class="container text-center py-5">
-  <h1 class="fw-bold display-5">Find a Tutor</h1>
-  <p class="text-muted mt-3">Students can search for verified tutors here and contact them directly.</p>
+  <h1 class="fw-bold">Find a Tutor</h1>
+  <p class="text-muted mt-2">
+    Tutor profiles will appear here once registration and verification are completed.
+  </p>
 </section>
 
-<!-- Tutor Cards Section -->
-<section class="container py-5">
-  <div class="row g-4">
-
-    <!-- Tutor 1 -->
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm">
-        <div class="card-body text-center">
-          <h5 class="card-title">Mr. Neelesh</h5>
-          <p class="card-text">Maths, Class 11-12</p>
-          <p class="card-text">Location: Faridabad</p>
-          <a href="mailto:neelesh@example.com" class="btn btn-primary">Contact</a>
-        </div>
+<!-- Empty State (Professional) -->
+<section class="container pb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm p-5 text-center tutor-card">
+        <h5 class="fw-semibold mb-3">No Tutor Profiles Available</h5>
+        <p class="status-text">
+          Currently, there are no active tutor profiles to display.
+          <br>
+          Please check back later or encourage tutors to register on Tutora.
+        </p>
+        <a href="register-tutor.html" class="btn btn-outline-primary mt-3">
+          Become a Tutor
+        </a>
       </div>
     </div>
-
-    <!-- Tutor 2 -->
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm">
-        <div class="card-body text-center">
-          <h5 class="card-title">Ms. Yashika</h5>
-          <p class="card-text">English, Class 10-12</p>
-          <p class="card-text">Location: Delhi</p>
-          <a href="mailto:yashika@example.com" class="btn btn-primary">Contact</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tutor 3 -->
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm">
-        <div class="card-body text-center">
-          <h5 class="card-title">Mr. Aman</h5>
-          <p class="card-text">Science, Class 9-12</p>
-          <p class="card-text">Location: Gurgaon</p>
-          <a href="mailto:aman@example.com" class="btn btn-primary">Contact</a>
-        </div>
-      </div>
-    </div>
-
   </div>
 </section>
 
