@@ -6,159 +6,152 @@
 <title>Find a Tutor | Tutora</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
-body { font-family: 'Arial', sans-serif; background-color: #f5f5f5; }
-
-.hero { background-color: #fff; padding: 60px 20px; text-align: center; border-bottom: 1px solid #ddd; }
-.hero h1 { font-size: 2.5rem; font-weight: bold; }
-.hero p { color: #555; font-size: 1.1rem; margin-top: 10px; }
-
-.filter-container { max-width: 950px; margin: 20px auto; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-.filter-container select, .filter-container input { padding: 10px 15px; border-radius: 50px; border: 1px solid #ccc; min-width: 200px; }
-
-.tutor-box { background-color: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; position: relative; }
-.tutor-box:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
-.tutor-name { font-weight: bold; font-size: 1.3rem; color: #333; }
-.tutor-info { color: #555; margin: 5px 0; }
-.contact-btn { margin-top: 10px; }
-
-.extra-info { display: none; margin-top: 10px; color: #444; font-size: 0.95rem; }
-.tutor-box.expanded .extra-info { display: block; }
-
-#tutor-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-
-.arrow { float: right; transition: transform 0.3s; }
-.tutor-box.expanded .arrow { transform: rotate(180deg); }
+body { font-family: Arial, sans-serif; background-color: #f5f5f5; }
+.navbar { margin-bottom: 20px; }
+.container { max-width: 1200px; margin: auto; padding: 20px; }
+.card { border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
+.card-body { text-align: center; }
+.card-title { font-weight: bold; font-size: 1.2rem; }
+.card-text { color: #555; }
 </style>
 </head>
 <body>
 
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="index.html">TUTORA</a>
-    <div class="collapse navbar-collapse show">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link active" href="find-tutor.html">Find a Tutor</a></li>
-        <li class="nav-item"><a class="nav-link" href="register-tutor.html">Become a Tutor</a></li>
-      </ul>
-    </div>
+<div class="container">
+  <a class="navbar-brand fw-bold" href="index.html">TUTORA</a>
+  <div class="collapse navbar-collapse show">
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link active" href="find-tutor.html">Find a Tutor</a></li>
+      <li class="nav-item"><a class="nav-link" href="register-tutor.html">Become a Tutor</a></li>
+    </ul>
   </div>
+</div>
 </nav>
 
-<section class="hero">
-  <h1 class="fw-bold">Find a Tutor</h1>
-  <p class="text-muted mt-3">Browse verified tutors. Click contact to start learning!</p>
-</section>
-
-<div class="filter-container">
-  <input type="text" id="searchInput" placeholder="Search by Name, Subject, Class, Location">
-  <select id="subjectFilter"><option value="">All Subjects</option></select>
-  <select id="classFilter"><option value="">All Classes</option></select>
-  <select id="locationFilter"><option value="">All Locations</option></select>
-  <select id="homeFilter"><option value="">Home Tuition</option><option value="Yes">Yes</option><option value="No">No</option></select>
+<!-- Filters -->
+<div class="container mb-4">
+<div class="row g-3">
+  <div class="col-md-3">
+    <select id="subjectFilter" class="form-select">
+      <option value="All">All Subjects</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <select id="classFilter" class="form-select">
+      <option value="All">All Classes</option>
+    </select>
+  </div>
+  <div class="col-md-3">
+    <select id="countryFilter" class="form-select">
+      <option value="All">All Countries</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <select id="stateFilter" class="form-select">
+      <option value="All">All States</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <select id="districtFilter" class="form-select">
+      <option value="All">All Districts</option>
+    </select>
+  </div>
+</div>
 </div>
 
-<section class="container py-5">
-  <div id="tutor-cards"></div>
-</section>
+<!-- Tutors Section -->
+<div class="container" id="tutorsContainer"></div>
 
-<footer class="bg-white border-top py-3 text-center text-muted">
-  © 2026 Tutora. All rights reserved.
+<footer class="bg-white border-top py-3 text-center text-muted mt-4">
+© 2026 TUTORA. All rights reserved.
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script>
+// ---------------- CBSE-style Subjects & Classes ----------------
+const subjects = ["All","English","Hindi","Sanskrit","French","German","Spanish","Mathematics","Physics","Chemistry","Biology","Computer Science","Biotechnology","Accountancy","Business Studies","Economics","Informatics Practices","Entrepreneurship","History","Political Science","Geography","Psychology","Sociology","Information Technology","Physical Education","Art & Craft","Music","Dance"];
+const classes = ["All","1st","2nd","3rd","4th","5th","6th","7th","8th","9th","10th","11th","12th"];
+
+const subjectFilter = document.getElementById("subjectFilter");
+const classFilter = document.getElementById("classFilter");
+const countryFilter = document.getElementById("countryFilter");
+const stateFilter = document.getElementById("stateFilter");
+const districtFilter = document.getElementById("districtFilter");
+
+subjects.forEach(s => subjectFilter.innerHTML += `<option value="${s}">${s}</option>`);
+classes.forEach(c => classFilter.innerHTML += `<option value="${c}">${c}</option>`);
+
+// -------- Google Sheet CSV URL --------
 const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQQQHhT5VeUKqGGRrhlW5Y8cVgHXeJ9XEMm3HBh8Zcy5xQv2DdddIL3FR5ysRsdJGmx9ooW7WcQsIYB/pub?output=csv";
 let allTutors = [];
 
-async function fetchTutors() {
-  const res = await fetch(csvUrl);
-  const data = await res.text();
-  const rows = data.split("\n").slice(1);
-  allTutors = rows.map(row => {
-    const [name,email,subjects,classes,location,experience,timings,notes,home_tuition] = row.split(",");
-    return { name,email,subjects,classes,location,experience,timings,notes,home_tuition };
+// Fetch CSV
+Papa.parse(csvUrl, {
+    download: true,
+    header: true,
+    complete: function(results) {
+        allTutors = results.data;
+        populateLocationFilters();
+        renderTutors(allTutors);
+    }
+});
+
+// Populate location dropdowns dynamically
+function populateLocationFilters() {
+  const countries = new Set();
+  const states = new Set();
+  const districts = new Set();
+  allTutors.forEach(t => {
+    if(t.Country) countries.add(t.Country.trim());
+    if(t.State) states.add(t.State.trim());
+    if(t.District) districts.add(t.District.trim());
   });
-  populateFilters();
+  Array.from(countries).sort().forEach(c => countryFilter.innerHTML += `<option value="${c}">${c}</option>`);
+  Array.from(states).sort().forEach(s => stateFilter.innerHTML += `<option value="${s}">${s}</option>`);
+  Array.from(districts).sort().forEach(d => districtFilter.innerHTML += `<option value="${d}">${d}</option>`);
 }
 
-function populateFilters() {
-  const subjects = [...new Set(allTutors.map(t=>t.subjects).filter(s=>s))];
-  const classes = [...new Set(allTutors.map(t=>t.classes).filter(c=>c))];
-  const locations = [...new Set(allTutors.map(t=>t.location).filter(l=>l))];
-
-  subjects.forEach(s=>document.getElementById("subjectFilter").innerHTML += `<option value="${s}">${s}</option>`);
-  classes.forEach(c=>document.getElementById("classFilter").innerHTML += `<option value="${c}">${c}</option>`);
-  locations.forEach(l=>document.getElementById("locationFilter").innerHTML += `<option value="${l}">${l}</option>`);
-
-  displayTutors(allTutors);
-}
-
-function displayTutors(tutors) {
-  const container = document.getElementById("tutor-cards");
+// Render tutors
+function renderTutors(list) {
+  const container = document.getElementById("tutorsContainer");
   container.innerHTML = "";
-
-  if(!tutors || tutors.length === 0 || !tutors[0].name) {
-    container.innerHTML = '<div class="alert alert-info text-center">No tutors available yet. <a href="register-tutor.html">Register as a tutor</a>.</div>';
-    return;
-  }
-
-  tutors.forEach(tutor => {
-    const box = document.createElement("div");
-    box.className = "tutor-box";
-    box.innerHTML = `
-      <div class="tutor-name">${tutor.name} <span class="arrow">&#9660;</span></div>
-      <div class="tutor-info"><strong>Subjects:</strong> ${tutor.subjects}</div>
-      <div class="tutor-info"><strong>Classes:</strong> ${tutor.classes}</div>
-      <div class="tutor-info"><strong>Location:</strong> ${tutor.location}</div>
-      <div class="extra-info">
-        ${tutor.experience ? `<div><strong>Experience:</strong> ${tutor.experience}</div>` : ''}
-        ${tutor.timings ? `<div><strong>Timings:</strong> ${tutor.timings}</div>` : ''}
-        ${tutor.notes ? `<div><strong>Notes:</strong> ${tutor.notes}</div>` : ''}
-        ${tutor.home_tuition ? `<div><strong>Home Tuition:</strong> ${tutor.home_tuition}</div>` : ''}
+  list.forEach(t => {
+    container.innerHTML += `
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">${t.Name}</h5>
+        <p class="card-text"><strong>Subjects:</strong> ${t.Subjects}</p>
+        <p class="card-text"><strong>Classes:</strong> ${t.Classes}</p>
+        <p class="card-text"><strong>Location:</strong> ${t.Country}, ${t.State}, ${t.District}</p>
+        <p class="card-text"><strong>Home Tuition:</strong> ${t.HomeTuition}</p>
+        <p class="card-text"><strong>Timings:</strong> ${t.Timings}</p>
+        <a href="mailto:${t.Email}" class="btn btn-primary">Contact</a>
       </div>
-      <a href="mailto:${tutor.email}" class="btn btn-primary contact-btn">Contact</a>
-    `;
-
-    box.addEventListener("click", e=>{
-      if(!e.target.classList.contains('contact-btn')) box.classList.toggle("expanded");
-    });
-
-    container.appendChild(box);
+    </div>`;
   });
 }
 
-function applyFilters() {
-  const search = document.getElementById("searchInput").value.toLowerCase();
-  const subject = document.getElementById("subjectFilter").value;
-  const classes = document.getElementById("classFilter").value;
-  const location = document.getElementById("locationFilter").value;
-  const home = document.getElementById("homeFilter").value;
-
-  let filtered = allTutors.filter(t =>
-    (t.name.toLowerCase().includes(search) ||
-     t.subjects.toLowerCase().includes(search) ||
-     t.classes.toLowerCase().includes(search) ||
-     t.location.toLowerCase().includes(search))
-  );
-
-  if(subject) filtered = filtered.filter(t=>t.subjects===subject);
-  if(classes) filtered = filtered.filter(t=>t.classes===classes);
-  if(location) filtered = filtered.filter(t=>t.location===location);
-  if(home) filtered = filtered.filter(t=>t.home_tuition===home);
-
-  displayTutors(filtered);
-}
-
-document.getElementById("searchInput").addEventListener("input", applyFilters);
-document.getElementById("subjectFilter").addEventListener("change", applyFilters);
-document.getElementById("classFilter").addEventListener("change", applyFilters);
-document.getElementById("locationFilter").addEventListener("change", applyFilters);
-document.getElementById("homeFilter").addEventListener("change", applyFilters);
-
-fetchTutors();
+// Filters logic
+[subjectFilter, classFilter, countryFilter, stateFilter, districtFilter].forEach(f => {
+  f.addEventListener("change", () => {
+    const filtered = allTutors.filter(t => {
+      let match = true;
+      if(subjectFilter.value !== "All" && !t.Subjects.includes(subjectFilter.value)) match=false;
+      if(classFilter.value !== "All" && !t.Classes.includes(classFilter.value)) match=false;
+      if(countryFilter.value !== "All" && t.Country !== countryFilter.value) match=false;
+      if(stateFilter.value !== "All" && t.State !== stateFilter.value) match=false;
+      if(districtFilter.value !== "All" && t.District !== districtFilter.value) match=false;
+      return match;
+    });
+    renderTutors(filtered);
+  });
+});
 </script>
-
 </body>
 </html>
 
+    
