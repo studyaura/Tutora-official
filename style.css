@@ -1,0 +1,89 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f4f6fb;
+  color: #333;
+}
+
+header {
+  background: #6c5ce7;
+  color: white;
+  text-align: center;
+  padding: 25px;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  background: #fff;
+  padding: 12px;
+}
+
+nav a {
+  text-decoration: none;
+  padding: 10px 18px;
+  color: #333;
+  border-radius: 6px;
+}
+
+nav a.active, nav a:hover {
+  background: #6c5ce7;
+  color: white;
+}
+
+.section {
+  display: block;
+  padding: 20px 25px;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+select {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: white;
+  padding: 18px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.card h3 {
+  margin: 0 0 8px;
+  color: #6c5ce7;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 24px;
+  background: #6c5ce7;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+  background: #ddd;
+  margin-top: 40px;
+}
