@@ -6,47 +6,32 @@
 <title>Find a Tutor | Tutora</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
-  body { font-family: 'Arial', sans-serif; background-color: #f5f5f5; }
+body { font-family: 'Arial', sans-serif; background-color: #f5f5f5; }
 
-  /* Hero Section */
-  .hero { background-color: #fff; padding: 60px 20px; text-align: center; border-bottom: 1px solid #ddd; }
-  .hero h1 { font-size: 2.5rem; font-weight: bold; }
-  .hero p { color: #555; font-size: 1.1rem; margin-top: 10px; }
+.hero { background-color: #fff; padding: 60px 20px; text-align: center; border-bottom: 1px solid #ddd; }
+.hero h1 { font-size: 2.5rem; font-weight: bold; }
+.hero p { color: #555; font-size: 1.1rem; margin-top: 10px; }
 
-  /* Search & Filters */
-  .filter-container { max-width: 950px; margin: 20px auto; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-  .filter-container select, .filter-container input { padding: 10px 15px; border-radius: 50px; border: 1px solid #ccc; min-width: 200px; }
+.filter-container { max-width: 950px; margin: 20px auto; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.filter-container select, .filter-container input { padding: 10px 15px; border-radius: 50px; border: 1px solid #ccc; min-width: 200px; }
 
-  /* Tutor Box Styles */
-  .tutor-box {
-    background-color: #fff;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-    position: relative;
-  }
-  .tutor-box:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
-  .tutor-name { font-weight: bold; font-size: 1.3rem; color: #333; }
-  .tutor-info { color: #555; margin: 5px 0; }
-  .contact-btn { margin-top: 10px; }
+.tutor-box { background-color: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; position: relative; }
+.tutor-box:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+.tutor-name { font-weight: bold; font-size: 1.3rem; color: #333; }
+.tutor-info { color: #555; margin: 5px 0; }
+.contact-btn { margin-top: 10px; }
 
-  /* Expandable Details */
-  .extra-info { display: none; margin-top: 10px; color: #444; font-size: 0.95rem; }
-  .tutor-box.expanded .extra-info { display: block; }
+.extra-info { display: none; margin-top: 10px; color: #444; font-size: 0.95rem; }
+.tutor-box.expanded .extra-info { display: block; }
 
-  /* Grid */
-  #tutor-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+#tutor-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
 
-  /* Smooth toggle arrow */
-  .arrow { float: right; transition: transform 0.3s; }
-  .tutor-box.expanded .arrow { transform: rotate(180deg); }
+.arrow { float: right; transition: transform 0.3s; }
+.tutor-box.expanded .arrow { transform: rotate(180deg); }
 </style>
 </head>
 <body>
 
-<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
   <div class="container">
     <a class="navbar-brand fw-bold" href="index.html">TUTORA</a>
@@ -60,26 +45,23 @@
   </div>
 </nav>
 
-<!-- Hero -->
 <section class="hero">
   <h1 class="fw-bold">Find a Tutor</h1>
   <p class="text-muted mt-3">Browse verified tutors. Click contact to start learning!</p>
 </section>
 
-<!-- Filters -->
 <div class="filter-container">
   <input type="text" id="searchInput" placeholder="Search by Name, Subject, Class, Location">
   <select id="subjectFilter"><option value="">All Subjects</option></select>
   <select id="classFilter"><option value="">All Classes</option></select>
   <select id="locationFilter"><option value="">All Locations</option></select>
+  <select id="homeFilter"><option value="">Home Tuition</option><option value="Yes">Yes</option><option value="No">No</option></select>
 </div>
 
-<!-- Tutors Grid -->
 <section class="container py-5">
   <div id="tutor-cards"></div>
 </section>
 
-<!-- Footer -->
 <footer class="bg-white border-top py-3 text-center text-muted">
   © 2026 Tutora. All rights reserved.
 </footer>
@@ -89,19 +71,17 @@
 const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQQQHhT5VeUKqGGRrhlW5Y8cVgHXeJ9XEMm3HBh8Zcy5xQv2DdddIL3FR5ysRsdJGmx9ooW7WcQsIYB/pub?output=csv";
 let allTutors = [];
 
-// Fetch CSV & parse
 async function fetchTutors() {
   const res = await fetch(csvUrl);
   const data = await res.text();
   const rows = data.split("\n").slice(1);
   allTutors = rows.map(row => {
-    const [name,email,subjects,classes,location,experience,timings,notes] = row.split(",");
-    return { name,email,subjects,classes,location,experience,timings,notes };
+    const [name,email,subjects,classes,location,experience,timings,notes,home_tuition] = row.split(",");
+    return { name,email,subjects,classes,location,experience,timings,notes,home_tuition };
   });
   populateFilters();
 }
 
-// Populate dropdown filters dynamically
 function populateFilters() {
   const subjects = [...new Set(allTutors.map(t=>t.subjects).filter(s=>s))];
   const classes = [...new Set(allTutors.map(t=>t.classes).filter(c=>c))];
@@ -114,7 +94,6 @@ function populateFilters() {
   displayTutors(allTutors);
 }
 
-// Display tutors
 function displayTutors(tutors) {
   const container = document.getElementById("tutor-cards");
   container.innerHTML = "";
@@ -136,6 +115,7 @@ function displayTutors(tutors) {
         ${tutor.experience ? `<div><strong>Experience:</strong> ${tutor.experience}</div>` : ''}
         ${tutor.timings ? `<div><strong>Timings:</strong> ${tutor.timings}</div>` : ''}
         ${tutor.notes ? `<div><strong>Notes:</strong> ${tutor.notes}</div>` : ''}
+        ${tutor.home_tuition ? `<div><strong>Home Tuition:</strong> ${tutor.home_tuition}</div>` : ''}
       </div>
       <a href="mailto:${tutor.email}" class="btn btn-primary contact-btn">Contact</a>
     `;
@@ -148,12 +128,12 @@ function displayTutors(tutors) {
   });
 }
 
-// Filters & search
 function applyFilters() {
   const search = document.getElementById("searchInput").value.toLowerCase();
   const subject = document.getElementById("subjectFilter").value;
   const classes = document.getElementById("classFilter").value;
   const location = document.getElementById("locationFilter").value;
+  const home = document.getElementById("homeFilter").value;
 
   let filtered = allTutors.filter(t =>
     (t.name.toLowerCase().includes(search) ||
@@ -165,19 +145,20 @@ function applyFilters() {
   if(subject) filtered = filtered.filter(t=>t.subjects===subject);
   if(classes) filtered = filtered.filter(t=>t.classes===classes);
   if(location) filtered = filtered.filter(t=>t.location===location);
+  if(home) filtered = filtered.filter(t=>t.home_tuition===home);
 
   displayTutors(filtered);
 }
 
-// Event listeners
 document.getElementById("searchInput").addEventListener("input", applyFilters);
 document.getElementById("subjectFilter").addEventListener("change", applyFilters);
 document.getElementById("classFilter").addEventListener("change", applyFilters);
 document.getElementById("locationFilter").addEventListener("change", applyFilters);
+document.getElementById("homeFilter").addEventListener("change", applyFilters);
 
-// Initialize
 fetchTutors();
 </script>
 
 </body>
 </html>
+
