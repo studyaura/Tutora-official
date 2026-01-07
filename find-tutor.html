@@ -38,7 +38,7 @@ footer { background: #f8f9fa; padding: 20px 0; text-align: center; }
 <!-- Hero Section -->
 <section class="container text-center py-5">
   <h1 class="fw-bold display-5">Find a Tutor</h1>
-  <p class="text-muted mt-3">Search verified tutors by class, subject, board, exam, mode, city, institute & more.</p>
+  <p class="text-muted mt-3">Search verified tutors by class, subject, board, exam, mode, city, and more.</p>
 </section>
 
 <!-- Filters Section -->
@@ -55,13 +55,11 @@ footer { background: #f8f9fa; padding: 20px 0; text-align: center; }
     <div class="col-md-3">
       <label for="filterSubject" class="form-label">Subject</label>
       <select id="filterSubject" class="form-select" multiple>
-        <option>Math</option><option>Core Math</option><option>Science</option><option>Physics</option>
-        <option>Chemistry</option><option>Biology</option><option>English</option><option>Hindi</option>
-        <option>Social Science</option><option>Commerce</option><option>Accountancy</option>
-        <option>Economics</option><option>Business Studies</option><option>Psychology</option>
-        <option>Computer Science</option><option>French</option><option>Spanish</option>
-        <option>Typing / Typewriting</option>
-        <option>Additional Subjects</option>
+        <option>Math (Core)</option><option>Math (Specialisation)</option><option>Science</option>
+        <option>English</option><option>Hindi</option><option>Social Science</option>
+        <option>Commerce</option><option>Accountancy</option><option>Economics</option>
+        <option>Business Studies</option><option>Psychology</option><option>Computer Science</option>
+        <option>French</option><option>Spanish</option><option>Typing</option>
       </select>
     </div>
     <div class="col-md-2">
@@ -80,7 +78,7 @@ footer { background: #f8f9fa; padding: 20px 0; text-align: center; }
       <label for="filterExam" class="form-label">Exam Prep</label>
       <select id="filterExam" class="form-select" multiple>
         <option>CUET</option><option>NEET</option><option>JEE</option><option>CLAT</option>
-        <option>Olympiads</option><option>SSC</option><option>Banking</option><option>Other Competitive Exams</option>
+        <option>Olympiads</option><option>SSC</option><option>Banking</option>
       </select>
     </div>
   </div>
@@ -89,7 +87,7 @@ footer { background: #f8f9fa; padding: 20px 0; text-align: center; }
 <!-- Tutors Display Section -->
 <section class="container py-3">
   <div class="row" id="tutorCards">
-    <!-- Tutor Cards dynamically added -->
+    <!-- Tutor Cards dynamically displayed -->
   </div>
 </section>
 
@@ -100,7 +98,7 @@ footer { background: #f8f9fa; padding: 20px 0; text-align: center; }
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 <script>
-// CSV link from Google Sheet
+// Google Sheet CSV link
 const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQQQHhT5VeUKqGGRrhlW5Y8cVgHXeJ9XEMm3HBh8Zcy5xQv2DdddIL3FR5ysRsdJGmx9ooW7WcQsIYB/pub?output=csv";
 
 // Fetch CSV
@@ -113,7 +111,7 @@ Papa.parse(csvUrl, {
     }
 });
 
-// Display Tutors Function
+// Display Tutors dynamically
 function displayTutors(data) {
     const container = document.getElementById("tutorCards");
     container.innerHTML = "";
@@ -132,17 +130,43 @@ function displayTutors(data) {
                 <p class="card-text"><b>Exam Prep:</b> ${tutor.Exams}</p>
                 <p class="card-text"><b>Fee:</b> ${tutor.Fee}</p>
                 <p class="card-text"><b>City:</b> ${tutor.City}</p>
-                <p class="card-text"><b>Institute / School:</b> ${tutor.Institute}</p>
-                <p class="card-text"><b>Professional Background:</b> ${tutor.Profession}</p>
-                <p class="card-text"><b>Demo Class Duration:</b> ${tutor.Demo}</p>
-                <p class="card-text"><b>Ratings:</b> ${tutor.Rating}</p>
-                <p class="card-text"><b>Reviews:</b> ${tutor.Reviews}</p>
+                <p class="card-text"><b>Institute:</b> ${tutor.Institute}</p>
+                <p class="card-text"><b>School:</b> ${tutor.School}</p>
+                <p class="card-text"><b>Professional:</b> ${tutor.Profession}</p>
+                <p class="card-text"><b>Demo Class:</b> ${tutor.DemoClass}</p>
                 <a href="mailto:${tutor.Email}" class="btn btn-primary w-100">Contact</a>
             </div>
         </div>`;
         container.appendChild(card);
     });
 }
+
+// Multi-select filter
+function applyFilters() {
+    const selectedClasses = Array.from(document.getElementById("filterClass").selectedOptions).map(o => o.value);
+    const selectedSubjects = Array.from(document.getElementById("filterSubject").selectedOptions).map(o => o.value);
+    const selectedBoards = Array.from(document.getElementById("filterBoard").selectedOptions).map(o => o.value);
+    const selectedModes = Array.from(document.getElementById("filterMode").selectedOptions).map(o => o.value);
+    const selectedExams = Array.from(document.getElementById("filterExam").selectedOptions).map(o => o.value);
+
+    const filteredTutors = window.tutorData.filter(tutor => {
+        if(!tutor.Name) return false;
+        if(selectedClasses.length && !selectedClasses.some(cls => tutor.Classes?.includes(cls))) return false;
+        if(selectedSubjects.length && !selectedSubjects.some(sub => tutor.Subjects?.includes(sub))) return false;
+        if(selectedBoards.length && !selectedBoards.some(b => tutor.Board?.includes(b))) return false;
+        if(selectedModes.length && !selectedModes.some(m => tutor.Mode?.includes(m))) return false;
+        if(selectedExams.length && !selectedExams.some(e => tutor.Exams?.includes(e))) return false;
+        return true;
+    });
+
+    displayTutors(filteredTutors);
+}
+
+// Add event listeners
+["filterClass","filterSubject","filterBoard","filterMode","filterExam"].forEach(id => {
+    document.getElementById(id).addEventListener("change", applyFilters);
+});
 </script>
+
 </body>
 </html>
