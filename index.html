@@ -2,33 +2,73 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>TUTORA | Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <title>Tutora | Find Tutors & Institutes</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f9f9f9; }
+    .hero { background: #6f42c1; color: white; padding: 80px 20px; text-align: center; }
+    .card { border-radius: 10px; }
+    footer { background: #f8f9fa; padding: 20px 0; text-align: center; }
+  </style>
 </head>
 <body>
 
-<header>
-  <h1>TUTORA</h1>
-  <p>Connecting Students with the Right Tutors</p>
-</header>
-
-<nav>
-  <a href="index.html">Home</a>
-  <a href="find-tutor.html">Find a Tutor</a>
-  <a href="register-tutor.html">Become a Tutor</a>
-  <a href="about.html">About</a>
-  <a href="contact.html">Contact</a>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="index.html">TUTORA</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="find-tutor.html">Find a Tutor</a></li>
+        <li class="nav-item"><a class="nav-link" href="register-tutor.html">Become a Tutor</a></li>
+        <li class="nav-item"><a class="nav-link" href="institute-register.html">Register Institute</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
 </nav>
 
-<section class="section active">
-  <h2>Welcome to Tutora</h2>
-  <p>Find the best tutors for your subjects and classes. Explore our services or register as a tutor to connect with students.</p>
+<!-- Hero Section -->
+<section class="hero">
+  <h1 class="display-5 fw-bold">Find the Best Tutors & Institutes</h1>
+  <p class="lead mt-3">Search verified tutors, compare fees, and book demo classes.</p>
+  <a href="find-tutor.html" class="btn btn-light btn-lg mt-3">Search Tutors Now</a>
+</section>
+
+<!-- Features Section -->
+<section class="container py-5">
+  <div class="row text-center g-4">
+    <div class="col-md-4">
+      <div class="card shadow-sm p-4">
+        <h5 class="fw-bold">Verified Tutors</h5>
+        <p>All tutors are verified and their qualifications displayed clearly.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm p-4">
+        <h5 class="fw-bold">Flexible Demo Classes</h5>
+        <p>Teachers offer demo classes online or offline based on your preference.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm p-4">
+        <h5 class="fw-bold">Dynamic Fee Structure</h5>
+        <p>See fees per class, subject, mode, and exam preparation clearly.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <footer>
-  <p>© 2026 Tutora. All rights reserved.</p>
+  © 2026 TUTORA. All Rights Reserved.
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
