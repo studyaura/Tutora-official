@@ -1,60 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Find a Tutor | TUTORA</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find a Tutor | TUTORA</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body { font-family: Arial, sans-serif; background-color: #f9f9f9; }
+.nav-link.active { font-weight: bold; }
+.card { border-radius: 10px; margin-bottom: 20px; }
+footer { background: #f8f9fa; padding: 20px 0; text-align: center; }
+.filter-section { background: #fff; padding: 20px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 0 10px rgba(0,0,0,0.05);}
+</style>
 </head>
 <body>
 
-<header>
-  <h1>TUTORA</h1>
-  <p>Find your ideal tutor easily</p>
-</header>
-
-<nav>
-  <a href="index.html">Home</a>
-  <a href="find-tutor.html" class="active">Find a Tutor</a>
-  <a href="register-tutor.html">Become a Tutor</a>
-  <a href="about.html">About</a>
-  <a href="contact.html">Contact</a>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="index.html">TUTORA</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="find-tutor.html">Find a Tutor</a></li>
+        <li class="nav-item"><a class="nav-link" href="register-tutor.html">Become a Tutor</a></li>
+        <li class="nav-item"><a class="nav-link" href="institute-register.html">Register Institute</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
 </nav>
 
-<section class="section active">
-  <h2>Find a Tutor</h2>
-
-  <div class="filters">
-    <select id="classSelect">
-      <option value="">Select Class</option>
-      <option>Class 1–5</option>
-      <option>Class 6–8</option>
-      <option>Class 9–10</option>
-      <option>Class 11–12</option>
-    </select>
-
-    <select id="streamSelect">
-      <option value="">Select Stream</option>
-      <option>Science</option>
-      <option>Commerce</option>
-      <option>Arts</option>
-    </select>
-
-    <select id="subjectSelect">
-      <option value="">Select Subject</option>
-    </select>
-
-    <select id="modeSelect">
-      <option value="">Mode</option>
-      <option>Online</option>
-      <option>Home Tuition</option>
-    </select>
-  </div>
-
-  <div id="tutorCards" class="cards"></div>
+<!-- Hero Section -->
+<section class="container text-center py-5">
+  <h1 class="fw-bold display-5">Find a Tutor</h1>
+  <p class="text-muted mt-3">Search verified tutors by class, subject, board, exam, mode, and city.</p>
 </section>
 
-<script src="script.js"></script>
+<!-- Filters Section -->
+<section class="container filter-section">
+  <div class="row g-3">
+    <div class="col-md-3">
+      <label for="filterClass" class="form-label">Class</label>
+      <select id="filterClass" class="form-select" multiple>
+        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+        <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+        <option>11</option><option>12</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label for="filterSubject" class="form-label">Subject</label>
+      <select id="filterSubject" class="form-select" multiple>
+        <option>Math</option><option>Science</option><option>English</option><option>Hindi</option>
+        <option>Social Science</option><option>Commerce</option><option>Accountancy</option>
+        <option>Economics</option><option>Business Studies</option><option>Psychology</option>
+        <option>Computer Science</option><option>French</option><option>Spanish</option>
+        <option>Typing</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <label for="filterBoard" class="form-label">Board</label>
+      <select id="filterBoard" class="form-select" multiple>
+        <option>CBSE</option><option>ICSE</option><option>State</option><option>IB</option><option>IGCSE</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <label for="filterMode" class="form-label">Mode</label>
+      <select id="filterMode" class="form-select" multiple>
+        <option>Online</option><option>Offline</option><option>Home Tutor</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <label for="filterExam" class="form-label">Exam Prep</label>
+      <select id="filterExam" class="form-select" multiple>
+        <option>CUET</option><option>NEET</option><option>JEE</option><option>CLAT</option>
+        <option>Olympiads</option><option>SSC</option><option>Banking</option>
+      </select>
+    </div>
+  </div>
+</section>
+
+<!-- Tutors Display Section -->
+<section class="container py-3">
+  <div class="row" id="tutorCards">
+    <!-- Tutor Cards will be dynamically added here -->
+  </div>
+</section>
+
+<footer>
+  © 2026 TUTORA. All Rights Reserved.
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script>
+// Google Sheet CSV link
+const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQQQHhT5VeUKqGGRrhlW5Y8cVgHXeJ9XEMm3HBh8Zcy5xQv2DdddIL3FR5ysRsdJGmx9ooW7WcQsIYB/pub?output=csv";
+
+// Fetch CSV
+Papa.parse(csvUrl, {
+    download: true,
+    header: true,
+    complete: function(results) {
+        window.tutorData = results.data;
+        displayTutors(window.tutorData);
+    }
+});
+
+// Display Tutors
+function displayTutors(data) {
+    const container = document.getElementById("tutorCards");
+    container.innerHTML = "";
+    data.forEach(tutor => {
+        if(!tutor.Name) return;
+        const card = document.createElement("div");
+        card.className = "col-md-4";
+        card.innerHTML = `
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">${tutor.Name}</h5>
+                <p class="card-text"><b>Classes:</b> ${tutor.Classes}</p>
+                <p class="card-text"><b>Subjects:</b> ${tutor.Subjects}</p>
+                <p class="card-text"><b>Board:</b> ${tutor.Board}</p>
+                <p class="card-text"><b>Mode:</b> ${tutor.Mode}</p>
+                <p class="card-text"><b>Exam Prep:</b> ${tutor.Exams}</p>
+                <p class="card-text"><b>Fee:</b> ${tutor.Fee}</p>
+                <p class="card-text"><b>City:</b> ${tutor.City}</p>
+                <a href="mailto:${tutor.Email}" class="btn btn-primary w-100">Contact</a>
+            </div>
+        </div>`;
+        container.appendChild(card);
+    });
+}
+
+// TODO: Add filter functionality (multi-select) for classes, subjects, boards, mode, exam
+</script>
 
 </body>
 </html>
