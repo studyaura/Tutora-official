@@ -8,8 +8,9 @@
 <style>
 body { font-family: Arial, sans-serif; background-color: #f9f9f9; }
 .nav-link.active { font-weight: bold; }
-form { background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.05); }
+.card { border-radius: 10px; margin-bottom: 20px; }
 footer { background: #f8f9fa; padding: 20px 0; text-align: center; }
+form { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.05);}
 </style>
 </head>
 <body>
@@ -36,108 +37,102 @@ footer { background: #f8f9fa; padding: 20px 0; text-align: center; }
 
 <!-- Hero Section -->
 <section class="container text-center py-5">
-  <h1 class="fw-bold display-5">Become a Tutor</h1>
-  <p class="text-muted mt-3">Fill in your details to register as a verified tutor on TUTORA.</p>
+  <h1 class="fw-bold display-5">Register as a Tutor</h1>
+  <p class="text-muted mt-3">Fill in your details and submit to get listed on TUTORA.</p>
 </section>
 
-<!-- Registration Form -->
+<!-- Tutor Registration Form -->
 <section class="container pb-5">
-  <form id="tutorForm">
-    <div class="row g-3">
-      <div class="col-md-6">
-        <label for="tutorName" class="form-label">Full Name</label>
-        <input type="text" class="form-control" id="tutorName" placeholder="Enter your full name" required>
-      </div>
-      <div class="col-md-6">
-        <label for="tutorEmail" class="form-label">Email Address</label>
-        <input type="email" class="form-control" id="tutorEmail" placeholder="Enter your email" required>
-      </div>
-      <div class="col-md-6">
-        <label for="tutorPhone" class="form-label">Phone Number</label>
-        <input type="tel" class="form-control" id="tutorPhone" placeholder="Enter your phone number" required>
-      </div>
-      <div class="col-md-6">
-        <label for="tutorCity" class="form-label">City</label>
-        <input type="text" class="form-control" id="tutorCity" placeholder="Enter your city" required>
-      </div>
+  <form id="tutorForm" target="_blank" action="https://docs.google.com/forms/d/e/1FAIpQLSdgyetMhQML1HNRX3sS8fjedHzahUM6X_bTBzNM9KqScAA1Cw/formResponse" method="POST">
 
-      <!-- Classes -->
-      <div class="col-md-6">
-        <label for="tutorClasses" class="form-label">Classes you teach</label>
-        <select id="tutorClasses" class="form-select" multiple required>
-          <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-          <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
-          <option>11</option><option>12</option>
-        </select>
-      </div>
-
-      <!-- Subjects -->
-      <div class="col-md-6">
-        <label for="tutorSubjects" class="form-label">Subjects</label>
-        <select id="tutorSubjects" class="form-select" multiple required>
-          <option>Math</option><option>Core Math</option><option>Science</option><option>Physics</option>
-          <option>Chemistry</option><option>Biology</option><option>English</option><option>Hindi</option>
-          <option>Social Science</option><option>Commerce</option><option>Accountancy</option>
-          <option>Economics</option><option>Business Studies</option><option>Psychology</option>
-          <option>Computer Science</option><option>French</option><option>Spanish</option>
-          <option>Typing / Typewriting</option>
-          <option>Additional Subjects</option>
-        </select>
-      </div>
-
-      <!-- Board -->
-      <div class="col-md-4">
-        <label for="tutorBoard" class="form-label">Board</label>
-        <select id="tutorBoard" class="form-select" multiple required>
-          <option>CBSE</option><option>ICSE</option><option>State</option><option>IB</option><option>IGCSE</option>
-        </select>
-      </div>
-
-      <!-- Mode -->
-      <div class="col-md-4">
-        <label for="tutorMode" class="form-label">Mode</label>
-        <select id="tutorMode" class="form-select" multiple required>
-          <option>Online</option><option>Offline</option><option>Home Tutor</option>
-        </select>
-      </div>
-
-      <!-- Exams -->
-      <div class="col-md-4">
-        <label for="tutorExams" class="form-label">Exam Prep</label>
-        <select id="tutorExams" class="form-select" multiple>
-          <option>CUET</option><option>NEET</option><option>JEE</option><option>CLAT</option>
-          <option>Olympiads</option><option>SSC</option><option>Banking</option>
-          <option>Other Competitive Exams</option>
-        </select>
-      </div>
-
-      <!-- Fee & Demo -->
-      <div class="col-md-6">
-        <label for="tutorFee" class="form-label">Fee Structure</label>
-        <input type="text" class="form-control" id="tutorFee" placeholder="e.g., 5000 per month" required>
-      </div>
-      <div class="col-md-6">
-        <label for="tutorDemo" class="form-label">Demo Class Duration</label>
-        <input type="text" class="form-control" id="tutorDemo" placeholder="e.g., 5 days / 1 week">
-      </div>
-
-      <!-- Institute -->
-      <div class="col-md-6">
-        <label for="tutorInstitute" class="form-label">Institute / School Affiliation</label>
-        <input type="text" class="form-control" id="tutorInstitute" placeholder="If applicable">
-      </div>
-
-      <!-- Professional Background -->
-      <div class="col-md-6">
-        <label for="tutorProfession" class="form-label">Professional Background</label>
-        <input type="text" class="form-control" id="tutorProfession" placeholder="e.g., CA, Engineer, Govt Job, etc.">
-      </div>
-
-      <!-- Submit -->
-      <div class="col-12 text-center mt-4">
-        <button type="submit" class="btn btn-primary btn-lg">Register as Tutor</button>
-      </div>
+    <div class="mb-3">
+      <label for="tutorName" class="form-label">Full Name</label>
+      <input type="text" class="form-control" id="tutorName" name="entry.2005620554" required>
     </div>
+
+    <div class="mb-3">
+      <label for="tutorEmail" class="form-label">Email Address</label>
+      <input type="email" class="form-control" id="tutorEmail" name="entry.1045781291" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="tutorPhone" class="form-label">Phone Number</label>
+      <input type="tel" class="form-control" id="tutorPhone" name="entry.1065046570" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="tutorClasses" class="form-label">Classes You Teach</label>
+      <select id="tutorClasses" class="form-select" name="entry.1166974658" multiple required>
+        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+        <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+        <option>11</option><option>12</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="tutorSubjects" class="form-label">Subjects</label>
+      <select id="tutorSubjects" class="form-select" name="entry.839337160" multiple required>
+        <option>Math (Core)</option><option>Math (Specialisation)</option><option>Science</option>
+        <option>English</option><option>Hindi</option><option>Social Science</option>
+        <option>Commerce</option><option>Accountancy</option><option>Economics</option>
+        <option>Business Studies</option><option>Psychology</option><option>Computer Science</option>
+        <option>French</option><option>Spanish</option><option>Typing</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="tutorBoard" class="form-label">Board</label>
+      <select id="tutorBoard" class="form-select" name="entry.123456789" multiple required>
+        <option>CBSE</option><option>ICSE</option><option>State</option><option>IB</option><option>IGCSE</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="tutorMode" class="form-label">Mode</label>
+      <select id="tutorMode" class="form-select" name="entry.987654321" multiple required>
+        <option>Online</option><option>Offline</option><option>Home Tutor</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="tutorExam" class="form-label">Exam Preparation</label>
+      <select id="tutorExam" class="form-select" name="entry.1122334455" multiple>
+        <option>CUET</option><option>NEET</option><option>JEE</option><option>CLAT</option>
+        <option>Olympiads</option><option>SSC</option><option>Banking</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="tutorFee" class="form-label">Fee</label>
+      <input type="text" class="form-control" id="tutorFee" name="entry.5566778899">
+    </div>
+
+    <div class="mb-3">
+      <label for="tutorCity" class="form-label">City / Location</label>
+      <input type="text" class="form-control" id="tutorCity" name="entry.9988776655" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="tutorInstitute" class="form-label">Institute (if any)</label>
+      <input type="text" class="form-control" id="tutorInstitute" name="entry.6677889900">
+    </div>
+
+    <div class="mb-3">
+      <label for="tutorSchool" class="form-label">School (if teaching in school)</label>
+      <input type="text" class="form-control" id="tutorSchool" name="entry.4455667788">
+    </div>
+
+    <div class="mb-3">
+      <label for="tutorProfession" class="form-label">Other Profession (if any)</label>
+      <input type="text" class="form-control" id="tutorProfession" name="entry.3344556677">
+    </div>
+
+    <div class="mb-3">
+      <label for="tutorDemo" class="form-label">Demo Class Duration</label>
+      <input type="text" class="form-control" id="tutorDemo" name="entry.2233445566">
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Submit</button>
   </form>
 </section>
 
@@ -146,14 +141,5 @@ footer { background: #f8f9fa; padding: 20px 0; text-align: center; }
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-// Example: Form submission (currently only alert)
-document.getElementById("tutorForm").addEventListener("submit", function(e){
-    e.preventDefault();
-    alert("Thank you for registering with TUTORA. Your profile will be reviewed shortly.");
-    // Here you can add code to push data to Google Sheets or backend
-});
-</script>
-
 </body>
 </html>
