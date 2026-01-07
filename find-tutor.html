@@ -11,6 +11,7 @@ body { font-family: Arial, sans-serif; background-color: #f9f9f9; }
 .card { border-radius: 10px; margin-bottom: 20px; }
 footer { background: #f8f9fa; padding: 20px 0; text-align: center; }
 .filter-section { background: #fff; padding: 20px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 0 10px rgba(0,0,0,0.05);}
+.submit-btn { margin-top: 15px; }
 </style>
 </head>
 <body>
@@ -38,12 +39,14 @@ footer { background: #f8f9fa; padding: 20px 0; text-align: center; }
 <!-- Hero Section -->
 <section class="container text-center py-5">
   <h1 class="fw-bold display-5">Find a Tutor</h1>
-  <p class="text-muted mt-3">Search verified tutors by class, subject, board, exam, mode, city, and more.</p>
+  <p class="text-muted mt-3">Search verified tutors by class, subject, board, exam, mode, city, and institute.</p>
 </section>
 
 <!-- Filters Section -->
 <section class="container filter-section">
   <div class="row g-3">
+
+    <!-- Class Filter -->
     <div class="col-md-2">
       <label for="filterClass" class="form-label">Class</label>
       <select id="filterClass" class="form-select" multiple>
@@ -52,42 +55,54 @@ footer { background: #f8f9fa; padding: 20px 0; text-align: center; }
         <option>11</option><option>12</option>
       </select>
     </div>
+
+    <!-- Subject Filter -->
     <div class="col-md-3">
       <label for="filterSubject" class="form-label">Subject</label>
       <select id="filterSubject" class="form-select" multiple>
-        <option>Math (Core)</option><option>Math (Specialisation)</option><option>Science</option>
-        <option>English</option><option>Hindi</option><option>Social Science</option>
+        <option>Math</option><option>Core Math</option><option>Science</option><option>Physics</option>
+        <option>Chemistry</option><option>Biology</option><option>English</option><option>Hindi</option>
+        <option>Social Science</option><option>History</option><option>Geography</option>
         <option>Commerce</option><option>Accountancy</option><option>Economics</option>
         <option>Business Studies</option><option>Psychology</option><option>Computer Science</option>
         <option>French</option><option>Spanish</option><option>Typing</option>
       </select>
     </div>
+
+    <!-- Board Filter -->
     <div class="col-md-2">
       <label for="filterBoard" class="form-label">Board</label>
       <select id="filterBoard" class="form-select" multiple>
         <option>CBSE</option><option>ICSE</option><option>State</option><option>IB</option><option>IGCSE</option>
       </select>
     </div>
+
+    <!-- Mode Filter -->
     <div class="col-md-2">
       <label for="filterMode" class="form-label">Mode</label>
       <select id="filterMode" class="form-select" multiple>
         <option>Online</option><option>Offline</option><option>Home Tutor</option>
       </select>
     </div>
+
+    <!-- Exam Filter -->
     <div class="col-md-3">
       <label for="filterExam" class="form-label">Exam Prep</label>
       <select id="filterExam" class="form-select" multiple>
         <option>CUET</option><option>NEET</option><option>JEE</option><option>CLAT</option>
         <option>Olympiads</option><option>SSC</option><option>Banking</option>
+        <option>Other</option>
       </select>
     </div>
+
   </div>
+  <button class="btn btn-success w-100 submit-btn" onclick="applyFilters()">Search Tutors</button>
 </section>
 
 <!-- Tutors Display Section -->
 <section class="container py-3">
   <div class="row" id="tutorCards">
-    <!-- Tutor Cards dynamically displayed -->
+    <!-- Tutor Cards will be dynamically added here -->
   </div>
 </section>
 
@@ -111,7 +126,7 @@ Papa.parse(csvUrl, {
     }
 });
 
-// Display Tutors dynamically
+// Display Tutors
 function displayTutors(data) {
     const container = document.getElementById("tutorCards");
     container.innerHTML = "";
@@ -123,6 +138,7 @@ function displayTutors(data) {
         <div class="card h-100 shadow-sm">
             <div class="card-body">
                 <h5 class="card-title">${tutor.Name}</h5>
+                <p class="card-text"><b>Institute:</b> ${tutor.Institute || 'N/A'}</p>
                 <p class="card-text"><b>Classes:</b> ${tutor.Classes}</p>
                 <p class="card-text"><b>Subjects:</b> ${tutor.Subjects}</p>
                 <p class="card-text"><b>Board:</b> ${tutor.Board}</p>
@@ -130,10 +146,7 @@ function displayTutors(data) {
                 <p class="card-text"><b>Exam Prep:</b> ${tutor.Exams}</p>
                 <p class="card-text"><b>Fee:</b> ${tutor.Fee}</p>
                 <p class="card-text"><b>City:</b> ${tutor.City}</p>
-                <p class="card-text"><b>Institute:</b> ${tutor.Institute}</p>
-                <p class="card-text"><b>School:</b> ${tutor.School}</p>
-                <p class="card-text"><b>Professional:</b> ${tutor.Profession}</p>
-                <p class="card-text"><b>Demo Class:</b> ${tutor.DemoClass}</p>
+                <p class="card-text"><b>Job:</b> ${tutor.Job || 'N/A'}</p>
                 <a href="mailto:${tutor.Email}" class="btn btn-primary w-100">Contact</a>
             </div>
         </div>`;
@@ -141,7 +154,7 @@ function displayTutors(data) {
     });
 }
 
-// Multi-select filter
+// Apply Filters
 function applyFilters() {
     const selectedClasses = Array.from(document.getElementById("filterClass").selectedOptions).map(o => o.value);
     const selectedSubjects = Array.from(document.getElementById("filterSubject").selectedOptions).map(o => o.value);
@@ -149,23 +162,16 @@ function applyFilters() {
     const selectedModes = Array.from(document.getElementById("filterMode").selectedOptions).map(o => o.value);
     const selectedExams = Array.from(document.getElementById("filterExam").selectedOptions).map(o => o.value);
 
-    const filteredTutors = window.tutorData.filter(tutor => {
-        if(!tutor.Name) return false;
-        if(selectedClasses.length && !selectedClasses.some(cls => tutor.Classes?.includes(cls))) return false;
-        if(selectedSubjects.length && !selectedSubjects.some(sub => tutor.Subjects?.includes(sub))) return false;
-        if(selectedBoards.length && !selectedBoards.some(b => tutor.Board?.includes(b))) return false;
-        if(selectedModes.length && !selectedModes.some(m => tutor.Mode?.includes(m))) return false;
-        if(selectedExams.length && !selectedExams.some(e => tutor.Exams?.includes(e))) return false;
-        return true;
+    const filtered = window.tutorData.filter(tutor => {
+        return (selectedClasses.length === 0 || selectedClasses.includes(tutor.Classes)) &&
+               (selectedSubjects.length === 0 || selectedSubjects.includes(tutor.Subjects)) &&
+               (selectedBoards.length === 0 || selectedBoards.includes(tutor.Board)) &&
+               (selectedModes.length === 0 || selectedModes.includes(tutor.Mode)) &&
+               (selectedExams.length === 0 || selectedExams.includes(tutor.Exams));
     });
 
-    displayTutors(filteredTutors);
+    displayTutors(filtered);
 }
-
-// Add event listeners
-["filterClass","filterSubject","filterBoard","filterMode","filterExam"].forEach(id => {
-    document.getElementById(id).addEventListener("change", applyFilters);
-});
 </script>
 
 </body>
